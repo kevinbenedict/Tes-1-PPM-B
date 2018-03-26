@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Tes 1 PPM</title>
+	<link rel=stylesheet href=jquery.mobile-1.4.5.css />
+	<script src=demos/js/jquery.js></script>
+	<script src=jquery.mobile-1.4.5.js></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+</head>
+<body>
+	<div data-role=page id=page1>
+		<div data-role=header>
+			<h1>Page 1</h1>
+		</div>
+		<div data-role=content>
+			<ul data-role="listview">
+			    <li><a href=#page2>Page 2</a></li>
+			    <li><a href=#page3>Page 3</a></li>
+			</ul>
+			<br>
+			<input type="text" id="textbox">
+			<div id=board style="text-align: center"></div>
+			<button onclick="decimalToBinary()">Binary</button>
+			<button onclick="decimalToHex()">Hexadecimal</button>
+			<br>
+			<button class="show-page-loading-msg" data-textonly="false" data-textvisible="false" data-msgtext="" data-inline="true">Loader</button>
+		</div>
+	</div>
+
+	<div data-role=page id=page2>
+		<div data-role=header>
+			<h1>Page 2</h1>
+		</div>
+		<div data-role=content>
+			<ul data-role="listview">
+			    <li><a href=#page1>Page 1</a></li>
+			    <li><a href=#page3>Page 3</a></li>
+			</ul>
+			Color: <input type="text" id="textbox2">
+			<button onclick="convertColor()">Convert</button>
+			<form>
+            	<label for="slider-2">Red</label>
+            	<input type="range" name="slider-2" id="red" data-highlight="true" min="0" max="255">
+				<label for="slider-2">Green</label>
+            	<input type="range" name="slider-2" id="green" data-highlight="true" min="0" max="255">
+				<label for="slider-2">Blue</label>
+            	<input type="range" name="slider-2" id="blue" data-highlight="true" min="0" max="255">
+			</form>
+		</div>
+	</div>
+
+	<div data-role=page id=page3>
+		<div data-role=header>
+			<h1>Page 3</h1>
+		</div>
+		<div data-role=content>
+			<a href=#panel><button>Switch Pages</button></a>
+			
+			<div data-role="panel" data-display="overlay" id="panel">
+				<a href=#page1><button>Go To Page 1</button></a>
+				<a href=#page2><button>Go To Page 2</button></a>
+			</div>
+			
+			<div class="rwd-example">
+            <!-- Lead story block -->
+            	<div class="ui-block-a">
+           			<div class="ui-body ui-body-d">
+            			<h3>GitHub</h3>
+						<p>Pada minggu pertama saya belajar tentang Git, yaitu sistem untuk melakukan version control. Awalnya saya belajar menggunakan TryGit, dimana saya mencoba simulasi melakukan version control menggunakan tutorialnya. Kemudian dosen memberikan PR untuk mencoba 2 Git GUI lainnya dan dibuat rangkuman step-by-stepnya beserta perbedaan diantaranya.</p>
+            		</div>
+            	</div>
+			    <!-- secondary story block #1 -->
+			    <div class="ui-block-b">
+			        <div class="ui-body ui-body-d">
+			            <h3>JQuery Mobile</h3>
+						<p>Dalam materi ini saya belajar bagaimana membuat tampilan dasar suatu website yang mobile-friendly menggunakan jQuery Mobile. Saya diajarkan beberapa fitur jQuery Mobile seperti data role, navbar, listview, dan lain-lain. Setelah itu dosen memberikan PR yaitu membuat website profil sederhana yang terdiri dari 3 halaman dan menggunakan beberapa fitur jQuery Mobile lainnya.</p>
+			        </div>
+			    </div>
+			    <!-- secondary story block #2 -->
+			    <div class="ui-block-c">
+			        <div class="ui-body ui-body-d">
+			            <h3>AngularJS</h3>
+						<p>Pada minggu sebelum tes saya belajar tentang AngularJS, yaitu sebuah framework yang dikembangkan oleh Google. Saya belajar menggunakan dasar AngularJS seperti menulis string, melakukan perhitungan sederhana, membuat controller, dan mengkonversi mata uang.</p>
+			        </div>
+			    </div>
+			</div><!-- /rwd-example -->
+		</div>
+	</div>
+
+	<script>
+		function decimalToBinary() {
+			var num = document.getElementById('textbox').value;
+			if (!Number.isInteger(num)) {
+				alert('Input must be integer');
+			}
+
+			else {
+				var num2 = num;
+	  			var bin = [];
+	  			while (num > 0) {
+	  			bin.unshift(num % 2);
+	  			num >>= 1;
+	  			}
+	  			document.getElementById('board').innerHTML = 'Binary of ' + num2 + ': ' + bin.join('');
+  			}
+		}
+
+		function decimalToHex() {
+			var num = parseInt(document.getElementById('textbox').value);
+			if (!Number.isInteger(num)) {
+				alert('Input must be integer');
+			}
+
+			else {
+				var hexString = num.toString(16);
+				document.getElementById('board').innerHTML = 'Hexadecimal of ' + num + ': ' + hexString;
+			}
+		}
+
+		function convertColor() {
+		  /* Check for # infront of the value, if it's there, strip it */
+		  var color = document.getElementById('textbox2').value;
+		  if(color.substring(0,1) == '#') {
+		     color = color.substring(1);
+		   }
+
+		  var rgbColor = {};
+
+		  /* Grab each pair (channel) of hex values and parse them to ints using hexadecimal decoding */
+		  rgbColor.rChannel = parseInt(color.substring(0,2),16);
+		  rgbColor.gChannel = parseInt(color.substring(2,4),16);
+		  rgbColor.bChannel = parseInt(color.substring(4),16);
+
+		  document.getElementById('red').value = rgbColor.rChannel;
+		  document.getElementById('green').value = rgbColor.gChannel;
+		  document.getElementById('blue').value = rgbColor.bChannel;
+		 }
+	</script>
+</body>
+</html>
